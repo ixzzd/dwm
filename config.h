@@ -11,15 +11,15 @@ static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display 
 static const int showsystray        = 1;        /* 0 means no systray */
 static const char *fonts[]          = { "monospace:size=14" };
 static const char dmenufont[]       = "monospace:size=14";
-static const char col_gray1[]       = "#282a36";
-static const char col_gray2[]       = "#546e7a";
+static const char col_gray1[]       = "#282C34";
+static const char col_gray2[]       = "#ABB2BF";
 static const char col_gray3[]       = "#f8f8f2";
 static const char col_gray4[]       = "#eceff1";
-static const char col_cyan[]     = "#bd93f9";
+static const char col_cyan[]        = "#c168DD";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_gray1,  col_cyan  },
+	[SchemeSel]  = { col_gray4, col_gray1, col_cyan  },
 };
 
 /* tagging */
@@ -36,12 +36,13 @@ static const Rule rules[] = {
   { "Spotify",  NULL,       NULL,       1 << 7,       0,           -1 },
   { "Upwork",   NULL,       NULL,       1 << 6,       1,           -1 },
   { "Firefox",  NULL,       NULL,       1 << 1,       0,           -1 },
+  { "Slack",    NULL,       NULL,       1 << 3,       0,           -1 },
 };
 
 /* layout(s) */
 static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
-static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
+static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 
 #include "layouts.c"
 static const Layout layouts[] = {
@@ -70,7 +71,7 @@ static const char *termcmd[]  = { "/home/germes/code/dotfiles/scripts/start_term
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_r,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
