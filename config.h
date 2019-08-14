@@ -9,17 +9,17 @@ static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows sel
 static const unsigned int systrayspacing = 4;   /* systray spacing */
 static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, 0: display systray on the last monitor*/
 static const int showsystray        = 1;        /* 0 means no systray */
-static const char *fonts[]          = { "monospace:size=14" };
-static const char dmenufont[]       = "monospace:size=14";
-static const char col_gray1[]       = "#282C34";
+static const char *fonts[]          = { "Liberation Mono:size=14" };
+static const char dmenufont[]       = "Liberation Mono:size=14";
+static const char col_black[]       = "#282C34";
 static const char col_gray2[]       = "#ABB2BF";
-static const char col_gray3[]       = "#f8f8f2";
+static const char col_white[]       = "#f8f8f2";
 static const char col_gray4[]       = "#eceff1";
 static const char col_cyan[]        = "#c168DD";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_gray1, col_cyan  },
+	[SchemeNorm] = { col_white, col_black, col_gray2 },
+	[SchemeSel]  = { col_black, col_gray2, col_cyan  },
 };
 
 /* tagging */
@@ -66,7 +66,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_black, "-nf", col_white, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "/home/germes/code/dotfiles/scripts/start_terminal.sh" };
 
 static Key keys[] = {
