@@ -6,11 +6,11 @@ static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor x */
-static const unsigned int systrayspacing = 4;   /* systray spacing */
+static const unsigned int systrayspacing = 6;   /* systray spacing */
 static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, 0: display systray on the last monitor*/
 static const int showsystray        = 1;        /* 0 means no systray */
-static const char *fonts[]          = { "Liberation Mono:size=12" };
-static const char dmenufont[]       = "Liberation Mono:size=12";
+static const char *fonts[]          = { "JetBrains Mono:size=12" };
+static const char dmenufont[]       = "JetBrains Mono:size=12";
 static const char col_black[]       = "#282C34";
 static const char col_gray2[]       = "#ABB2BF";
 static const char col_white[]       = "#f8f8f2";
@@ -30,13 +30,16 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Telegram", NULL,       NULL,       1 << 8,       0,           -1 },
-  { "Spotify",  NULL,       NULL,       1 << 7,       0,           -1 },
-  { "Upwork",   NULL,       NULL,       1 << 6,       1,           -1 },
-  { "zoom",     NULL,       NULL,       1 << 2,       1,           -1 },
-  { "Slack",    NULL,       NULL,       1 << 3,       0,           -1 },
+	/* class      instance    title       tags mask     isCentered isfloating   monitor */
+	{ "Gimp",     NULL,       NULL,       0,            0,         1,           -1 },
+	{ "Telegram", NULL,       NULL,       1 << 8,       1,         1,           -1 },
+  { "Spotify",  NULL,       NULL,       1 << 7,       0,         0,           -1 },
+  { "Upwork",   NULL,       NULL,       1 << 6,       0,         1,           -1 },
+  { "zoom",     NULL,       NULL,       1 << 2,       0,         1,           -1 },
+  { "Firefox",  NULL,       NULL,       NULL,       1,         0,           -1 },
+  { "Slack",    NULL,       NULL,       1 << 3,       0,         0,           -1 },
+  { "st-256color","st-256color",  "tmux",    NULL,    1,         0,           -1 },
+  { "st-256color","st-256color",  "gotop",    NULL,   1,         1,           -1 },
 };
 
 /* layout(s) */
@@ -47,8 +50,8 @@ static const int resizehints = 0;    /* 1 means respect size hints in tiled resi
 #include "layouts.c"
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "[]=",      tile },    /* first entry is default */
-	{ "><>",      NULL },    /* no layout function means floating behavior */
+	{ "><>",      NULL },    /* first entry is default */
+	{ "[]=",      tile },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
   { "HHH",      grid },
 };
@@ -66,7 +69,8 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_black, "-nf", col_white, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *dmenucmd[] = { "/home/germes/code/dotfiles/scripts/dmenu" };
+/* static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_black, "-nf", col_white, "-sb", col_cyan, "-sf", col_gray4, NULL }; */
 static const char *termcmd[]  = { "/home/germes/code/dotfiles/scripts/start_terminal" };
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = {"st", "-t", scratchpadname, "-g", "120x34", "-e", "fish", NULL};
@@ -87,11 +91,20 @@ static Key keys[] = {
   { MODKEY|ShiftMask,             XK_h,      setmfact,       {.f = -0.05} },
   { MODKEY|ShiftMask,             XK_l,      setmfact,       {.f = +0.05} },
 
+{ MODKEY,					XK_Down,	moveresize,		{.v = (int []){ 0, 25, 0, 0 }}},
+{ MODKEY,					XK_Up,		moveresize,		{.v = (int []){ 0, -25, 0, 0 }}},
+{ MODKEY,					XK_Right,	moveresize,		{.v = (int []){ 25, 0, 0, 0 }}},
+{ MODKEY,					XK_Left,	moveresize,		{.v = (int []){ -25, 0, 0, 0 }}},
+{ MODKEY|ShiftMask,			XK_Down,	moveresize,		{.v = (int []){ 0, 0, 0, 25 }}},
+{ MODKEY|ShiftMask,			XK_Up,		moveresize,		{.v = (int []){ 0, 0, 0, -25 }}},
+{ MODKEY|ShiftMask,			XK_Right,	moveresize,		{.v = (int []){ 0, 0, 25, 0 }}},
+{ MODKEY|ShiftMask,			XK_Left,	moveresize,		{.v = (int []){ 0, 0, -25, 0 }}},
+
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_q,      killclient,     {0} },
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
+	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[0]} },
+  { MODKEY,                       XK_t,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_g,      setlayout,      {.v = &layouts[3]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
@@ -99,7 +112,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
-	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
+  { MODKEY,                       XK_period, focusmon,       {.i = +1 } },
+  { MODKEY,                       XK_backslash, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
 	TAGKEYS(                        XK_1,                      0)
@@ -133,4 +147,4 @@ static Button buttons[] = {
 
 
 /* useless gaps */
-static const unsigned int gappx = 0;
+static const unsigned int gappx = 8;
