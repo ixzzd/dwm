@@ -30,16 +30,16 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isCentered isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            0,         1,           -1 },
-	{ "Telegram", NULL,       NULL,       1 << 8,       1,         1,           -1 },
-  { "Spotify",  NULL,       NULL,       1 << 7,       0,         0,           -1 },
-  { "Upwork",   NULL,       NULL,       1 << 6,       0,         1,           -1 },
-  { "zoom",     NULL,       NULL,       1 << 2,       0,         1,           -1 },
-  { "Firefox",  NULL,       NULL,       NULL,       1,         0,           -1 },
-  { "Slack",    NULL,       NULL,       1 << 3,       0,         0,           -1 },
-  { "st-256color","st-256color",  "tmux",    NULL,    1,         0,           -1 },
-  { "st-256color","st-256color",  "gotop",    NULL,   1,         1,           -1 },
+	/* class      instance    title       tags mask     isfloating   monitor */
+	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
+	{ "Telegram", NULL,       NULL,       1 << 8,       1,           -1 },
+  { "Spotify",  NULL,       NULL,       1 << 7,       0,           -1 },
+  { "Upwork",   NULL,       NULL,       1 << 6,       1,           -1 },
+  { "zoom",     NULL,       NULL,       1 << 2,       1,           -1 },
+  { "Firefox",  NULL,       NULL,       NULL,         0,           -1 },
+  { "Slack",    NULL,       NULL,       1 << 3,       0,           -1 },
+  { "st-256color","st-256color",  "tmux",    NULL,    0,           -1 },
+  { "st-256color","st-256color",  "gotop",    NULL,   1,           -1 },
 };
 
 /* layout(s) */
@@ -50,8 +50,8 @@ static const int resizehints = 0;    /* 1 means respect size hints in tiled resi
 #include "layouts.c"
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "><>",      NULL },    /* first entry is default */
-	{ "[]=",      tile },    /* no layout function means floating behavior */
+	{ "[]=",      tile },    /* first entry is default */
+  { "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
   { "HHH",      grid },
 };
@@ -91,20 +91,20 @@ static Key keys[] = {
   { MODKEY|ShiftMask,             XK_h,      setmfact,       {.f = -0.05} },
   { MODKEY|ShiftMask,             XK_l,      setmfact,       {.f = +0.05} },
 
-{ MODKEY,					XK_Down,	moveresize,		{.v = (int []){ 0, 25, 0, 0 }}},
-{ MODKEY,					XK_Up,		moveresize,		{.v = (int []){ 0, -25, 0, 0 }}},
-{ MODKEY,					XK_Right,	moveresize,		{.v = (int []){ 25, 0, 0, 0 }}},
-{ MODKEY,					XK_Left,	moveresize,		{.v = (int []){ -25, 0, 0, 0 }}},
-{ MODKEY|ShiftMask,			XK_Down,	moveresize,		{.v = (int []){ 0, 0, 0, 25 }}},
-{ MODKEY|ShiftMask,			XK_Up,		moveresize,		{.v = (int []){ 0, 0, 0, -25 }}},
-{ MODKEY|ShiftMask,			XK_Right,	moveresize,		{.v = (int []){ 0, 0, 25, 0 }}},
-{ MODKEY|ShiftMask,			XK_Left,	moveresize,		{.v = (int []){ 0, 0, -25, 0 }}},
+  { MODKEY,					XK_Down,	moveresize,		{.v = (int []){ 0, 25, 0, 0 }}},
+  { MODKEY,					XK_Up,		moveresize,		{.v = (int []){ 0, -25, 0, 0 }}},
+  { MODKEY,					XK_Right,	moveresize,		{.v = (int []){ 25, 0, 0, 0 }}},
+  { MODKEY,					XK_Left,	moveresize,		{.v = (int []){ -25, 0, 0, 0 }}},
+  { MODKEY|ShiftMask,			XK_Down,	moveresize,		{.v = (int []){ 0, 0, 0, 25 }}},
+  { MODKEY|ShiftMask,			XK_Up,		moveresize,		{.v = (int []){ 0, 0, 0, -25 }}},
+  { MODKEY|ShiftMask,			XK_Right,	moveresize,		{.v = (int []){ 0, 0, 25, 0 }}},
+  { MODKEY|ShiftMask,			XK_Left,	moveresize,		{.v = (int []){ 0, 0, -25, 0 }}},
 
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_q,      killclient,     {0} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[0]} },
-  { MODKEY,                       XK_t,      setlayout,      {.v = &layouts[1]} },
+  { MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
+	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_g,      setlayout,      {.v = &layouts[3]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
