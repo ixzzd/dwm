@@ -13,13 +13,13 @@ static const char *fonts[]          = { "JetBrains Mono:size=12" };
 static const char dmenufont[]       = "JetBrains Mono:size=12";
 static const char col_black[]       = "#282C34";
 static const char col_gray2[]       = "#ABB2BF";
-static const char col_white[]       = "#f8f8f2";
+static const char col_white[]       = "#fafafa";
 static const char col_gray4[]       = "#eceff1";
 static const char col_cyan[]        = "#c168DD";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_white, col_black, col_gray2 },
-	[SchemeSel]  = { col_black, col_gray2, col_cyan  },
+	[SchemeNorm] = { col_white, col_black, col_white },
+	[SchemeSel]  = { col_black, col_white, col_black  },
 };
 
 /* tagging */
@@ -34,7 +34,7 @@ static const Rule rules[] = {
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
 	{ "Telegram", NULL,       NULL,       1 << 8,       1,           -1 },
   { "Spotify",  NULL,       NULL,       1 << 7,       0,           -1 },
-  { "Upwork",   NULL,       NULL,       1 << 6,       1,           -1 },
+  { "Hubstaff", NULL,       NULL,       1 << 6,       1,           -1 },
   { "zoom",     NULL,       NULL,       1 << 2,       1,           -1 },
   { "Firefox",  NULL,       NULL,       NULL,         0,           -1 },
   { "Slack",    NULL,       NULL,       1 << 3,       0,           -1 },
@@ -147,4 +147,4 @@ static Button buttons[] = {
 
 
 /* useless gaps */
-static const unsigned int gappx = 8;
+static const unsigned int gappx = 32;
