@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 2;        /* border pixel of windows */
+static const unsigned int borderpx  = 4;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
@@ -11,15 +11,16 @@ static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display 
 static const int showsystray        = 1;        /* 0 means no systray */
 static const char *fonts[]          = { "JetBrains Mono:size=12" };
 static const char dmenufont[]       = "JetBrains Mono:size=12";
-static const char col_black[]       = "#282C34";
+static const char col_black[]       = "#282a36";
 static const char col_gray2[]       = "#ABB2BF";
-static const char col_white[]       = "#fafafa";
+static const char col_white[]       = "#f8f8f2";
 static const char col_gray4[]       = "#eceff1";
 static const char col_cyan[]        = "#c168DD";
+static const char col_green[]       = "#98c379";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_white, col_black, col_white },
-	[SchemeSel]  = { col_black, col_white, col_black  },
+	[SchemeNorm] = { col_white, col_black, col_black },
+	[SchemeSel]  = { col_black, col_white, col_green  },
 };
 
 /* tagging */
@@ -35,8 +36,8 @@ static const Rule rules[] = {
 	{ "Telegram", NULL,       NULL,       1 << 8,       1,           -1 },
   { "Spotify",  NULL,       NULL,       1 << 7,       0,           -1 },
   { "Hubstaff", NULL,       NULL,       1 << 6,       1,           -1 },
-  { "zoom",     NULL,       NULL,       1 << 2,       1,           -1 },
-  { "Firefox",  NULL,       NULL,       NULL,         0,           -1 },
+  { "zoom",     NULL,       NULL,       1 << 4,       1,           -1 },
+  { "thunderbird", NULL,    NULL,       1 << 2,       0 ,          -1 },
   { "Slack",    NULL,       NULL,       1 << 3,       0,           -1 },
   { "st-256color","st-256color",  "tmux",    NULL,    0,           -1 },
   { "st-256color","st-256color",  "gotop",    NULL,   1,           -1 },
@@ -102,7 +103,7 @@ static Key keys[] = {
 
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY|ShiftMask,             XK_q,      killclient,     {0} },
+	{ MODKEY,             XK_q,      killclient,     {0} },
   { MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
@@ -147,4 +148,4 @@ static Button buttons[] = {
 
 
 /* useless gaps */
-static const unsigned int gappx = 32;
+static const unsigned int gappx = 14;
